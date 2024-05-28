@@ -2,6 +2,7 @@ package com.api.movies.services;
 
 import com.api.movies.domain.Movie;
 import com.api.movies.dtos.movies.MoviePostRequestBodyDTO;
+import com.api.movies.exceptions.BadRequestException;
 import com.api.movies.mappers.MovieMapper;
 import com.api.movies.repositories.MovieRepository;
 import jakarta.transaction.Transactional;
@@ -18,6 +19,10 @@ public class MovieService {
 
     public List<Movie> getAll() {
         return movieRepository.findAll();
+    }
+
+    public Movie getByIdOrThrowBadRequestException(Long id) {
+        return movieRepository.findById(id).orElseThrow(() -> new BadRequestException("Movie not found"));
     }
 
     @Transactional

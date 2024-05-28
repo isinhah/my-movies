@@ -19,7 +19,12 @@ public class MovieController {
 
     @GetMapping
     public ResponseEntity<List<Movie>> getAll() {
-        return new ResponseEntity<>(movieService.getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(movieService.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Movie> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(movieService.getByIdOrThrowBadRequestException(id));
     }
 
     @PostMapping

@@ -28,9 +28,14 @@ public class MovieController {
         return ResponseEntity.ok(movieService.getByIdOrThrowBadRequestException(id));
     }
 
-    @GetMapping("/find") //movies/find?title=
+    @GetMapping("/find/by-title")
     public ResponseEntity<List<Movie>> getByTitle(@RequestParam String title) {
         return ResponseEntity.ok(movieService.getByTitle(title));
+    }
+
+    @GetMapping("/find/by-rating")
+    public ResponseEntity<List<Movie>> getByRating(@RequestParam Integer rating) {
+        return ResponseEntity.ok(movieService.getByRating(rating));
     }
 
     @PostMapping

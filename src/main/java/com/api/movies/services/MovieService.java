@@ -27,7 +27,11 @@ public class MovieService {
     }
 
     public List<Movie> getByTitle(String title) {
-        return movieRepository.findByTitleIgnoreCase(title);
+        return movieRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    public List<Movie> getByRating(Integer rating) {
+        return movieRepository.findByRating(rating);
     }
 
     @Transactional

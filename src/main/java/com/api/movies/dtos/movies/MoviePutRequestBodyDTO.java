@@ -10,10 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class MoviePostRequestBodyDTO {
+public class MoviePutRequestBodyDTO {
+    @NotNull(message = "The movie ID cannot be null")
+    private Long id;
     @NotBlank(message = "The title cannot be empty")
     private String title;
     @NotNull(message = "Rate the movie from 1 to 5")

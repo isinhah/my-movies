@@ -2,6 +2,7 @@ package com.api.movies.controllers;
 
 import com.api.movies.domain.Movie;
 import com.api.movies.dtos.movies.MoviePostRequestBodyDTO;
+import com.api.movies.dtos.movies.MoviePutRequestBodyDTO;
 import com.api.movies.services.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,11 @@ public class MovieController {
     @PostMapping
     public ResponseEntity<Movie> save(@RequestBody @Valid MoviePostRequestBodyDTO data) {
         return new ResponseEntity<>(movieService.save(data), HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> replace(@RequestBody @Valid MoviePutRequestBodyDTO data) {
+        movieService.replace(data);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

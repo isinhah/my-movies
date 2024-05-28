@@ -2,6 +2,7 @@ package com.api.movies.mappers;
 
 import com.api.movies.domain.Movie;
 import com.api.movies.dtos.movies.MoviePostRequestBodyDTO;
+import com.api.movies.dtos.movies.MoviePutRequestBodyDTO;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -14,6 +15,15 @@ public class MovieMapper {
         movie.setTitle(moviePostRequestBodyDTO.getTitle());
         movie.setRating(moviePostRequestBodyDTO.getRating());
         movie.setReview(moviePostRequestBodyDTO.getReview());
+        movie.setLogDate(Instant.now().truncatedTo(ChronoUnit.SECONDS));
+        return movie;
+    }
+
+    public static Movie toEntityMovie(MoviePutRequestBodyDTO moviePutRequestBodyDTO) {
+        Movie movie = new Movie();
+        movie.setTitle(moviePutRequestBodyDTO.getTitle());
+        movie.setRating(moviePutRequestBodyDTO.getRating());
+        movie.setReview(moviePutRequestBodyDTO.getReview());
         movie.setLogDate(Instant.now().truncatedTo(ChronoUnit.SECONDS));
         return movie;
     }

@@ -2,6 +2,7 @@ package com.api.movies.services;
 
 import com.api.movies.domain.Movie;
 import com.api.movies.dtos.movies.MoviePostRequestBodyDTO;
+import com.api.movies.dtos.movies.MoviePutRequestBodyDTO;
 import com.api.movies.exceptions.BadRequestException;
 import com.api.movies.mappers.MovieMapper;
 import com.api.movies.repositories.MovieRepository;
@@ -33,5 +34,13 @@ public class MovieService {
     public Movie save(MoviePostRequestBodyDTO moviePostRequestBodyDTO) {
         Movie movie = MovieMapper.toEntityMovie(moviePostRequestBodyDTO);
         return movieRepository.save(movie);
+    }
+
+    @Transactional
+    public void replace(MoviePutRequestBodyDTO moviePutRequestBodyDTO) {
+        Movie savedAnime = getByIdOrThrowBadRequestException(moviePutRequestBodyDTO.getId());
+        Movie movie = MovieMapper.toEntityMovie(moviePutRequestBodyDTO);
+        movie.setId(savedAnime.getId());
+        movieRepository.save(movie);
     }
 }

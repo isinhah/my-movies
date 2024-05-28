@@ -47,4 +47,8 @@ public class MovieService {
         movie.setId(savedAnime.getId());
         movieRepository.save(movie);
     }
+
+    public void delete(Long id) {
+       movieRepository.delete(getByIdOrThrowBadRequestException(id));
+    }
 }

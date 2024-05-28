@@ -3,6 +3,5 @@ CREATE TABLE IF NOT EXISTS tb_movie (
     title VARCHAR(255),
     rating INTEGER,
     review VARCHAR(255),
-    watched_date VARCHAR(10),
     log_date TIMESTAMP
 );

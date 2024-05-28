@@ -1,13 +1,13 @@
 package com.api.movies.controllers;
 
 import com.api.movies.domain.Movie;
+import com.api.movies.dtos.movies.MoviePostRequestBodyDTO;
 import com.api.movies.services.MovieService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +19,11 @@ public class MovieController {
 
     @GetMapping
     public ResponseEntity<List<Movie>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(movieService.getAll());
+        return new ResponseEntity<>(movieService.getAll(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Movie> save(@RequestBody @Valid MoviePostRequestBodyDTO data) {
+        return new ResponseEntity<>(movieService.save(data), HttpStatus.CREATED);
     }
 }

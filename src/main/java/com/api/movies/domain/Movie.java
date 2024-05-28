@@ -20,8 +20,6 @@ public class Movie implements Serializable {
     private String title;
     private Integer rating;
     private String review;
-    @Column(name = "watched_date")
-    private String watchedDate;
     @Column(name = "log_date")
     private Instant logDate;
 }

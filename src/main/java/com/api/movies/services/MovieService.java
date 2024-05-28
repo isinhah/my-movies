@@ -25,6 +25,10 @@ public class MovieService {
         return movieRepository.findById(id).orElseThrow(() -> new BadRequestException("Movie not found"));
     }
 
+    public List<Movie> getByTitle(String title) {
+        return movieRepository.findByTitleIgnoreCase(title);
+    }
+
     @Transactional
     public Movie save(MoviePostRequestBodyDTO moviePostRequestBodyDTO) {
         Movie movie = MovieMapper.toEntityMovie(moviePostRequestBodyDTO);

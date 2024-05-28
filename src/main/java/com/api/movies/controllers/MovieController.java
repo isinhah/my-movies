@@ -27,6 +27,11 @@ public class MovieController {
         return ResponseEntity.ok(movieService.getByIdOrThrowBadRequestException(id));
     }
 
+    @GetMapping("/find") //movies/find?title=
+    public ResponseEntity<List<Movie>> getByTitle(@RequestParam String title) {
+        return ResponseEntity.ok(movieService.getByTitle(title));
+    }
+
     @PostMapping
     public ResponseEntity<Movie> save(@RequestBody @Valid MoviePostRequestBodyDTO data) {
         return new ResponseEntity<>(movieService.save(data), HttpStatus.CREATED);

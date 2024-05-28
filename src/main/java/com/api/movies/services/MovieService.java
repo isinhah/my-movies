@@ -4,13 +4,13 @@ import com.api.movies.domain.Movie;
 import com.api.movies.dtos.movies.MoviePostRequestBodyDTO;
 import com.api.movies.dtos.movies.MoviePutRequestBodyDTO;
 import com.api.movies.exceptions.BadRequestException;
+import com.api.movies.exceptions.NotFoundException;
 import com.api.movies.mappers.MovieMapper;
 import com.api.movies.repositories.MovieRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -27,11 +27,19 @@ public class MovieService {
     }
 
     public List<Movie> getByTitle(String title) {
-        return movieRepository.findByTitleContainingIgnoreCase(title);
+        List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(title);
+        if (movies.isEmpty()) {
+            throw new NotFoundException("No movies found with title: " + title);
+        }
+        return movies;
     }
 
     public List<Movie> getByRating(Integer rating) {
-        return movieRepository.findByRating(rating);
+        List<Movie> movies = movieRepository.findByRating(rating);
+        if (movies.isEmpty()) {
+            throw new NotFoundException("No movies found with rating: " + rating);
+        }
+        return movies;
     }
 
     @Transactional

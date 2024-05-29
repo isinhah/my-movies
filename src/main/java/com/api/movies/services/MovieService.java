@@ -9,6 +9,8 @@ import com.api.movies.mappers.MovieMapper;
 import com.api.movies.repositories.MovieRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,10 @@ public class MovieService {
 
     public List<Movie> getAll() {
         return movieRepository.findAll();
+    }
+
+    public Page<Movie> listAll(Pageable pageable) {
+        return movieRepository.findAll(pageable);
     }
 
     public Movie getByIdOrThrowBadRequestException(Long id) {
@@ -56,6 +62,7 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
+    @Transactional
     public void delete(Long id) {
        movieRepository.delete(getByIdOrThrowBadRequestException(id));
     }

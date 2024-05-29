@@ -6,6 +6,7 @@ import com.api.movies.dtos.movies.MoviePutRequestBodyDTO;
 import com.api.movies.services.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,11 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping
+    public List<Movie> listAll(Pageable pageable) {
+        return movieService.listAll(pageable).getContent();
+    }
+
+    @GetMapping("/all")
     public ResponseEntity<List<Movie>> getAll() {
         return ResponseEntity.ok(movieService.getAll());
     }

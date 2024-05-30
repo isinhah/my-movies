@@ -65,7 +65,7 @@ class MovieServiceTest {
 
     @Test
     @DisplayName("Should return a movie by ID or throw NotFoundException")
-    void testGetByIdOrThrowNotFoundException() {
+    void testGetByIdOrThrowNotFoundExceptionSuccess() {
         Long id = 1L;
         Movie movie = new Movie();
         when(movieRepository.findById(id)).thenReturn(Optional.of(movie));
@@ -78,7 +78,7 @@ class MovieServiceTest {
 
     @Test
     @DisplayName("Should throw NotFoundException when movie is not found by ID")
-    void testGetByIdOrThrowNotFoundException_NotFound() {
+    void testGetByIdOrThrowNotFoundExceptionError() {
         Long id = 1L;
         when(movieRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -127,7 +127,7 @@ class MovieServiceTest {
 
     @Test
     @DisplayName("Should replace a movie or throw NotFoundException")
-    void testReplace() {
+    void testReplaceSuccess() {
         MoviePutRequestBodyDTO dto = mock(MoviePutRequestBodyDTO.class);
         when(dto.getId()).thenReturn(1L);
         when(dto.getTitle()).thenReturn("Inception");
@@ -145,7 +145,7 @@ class MovieServiceTest {
 
     @Test
     @DisplayName("Should throw NotFoundException when replacing a movie that does not exist")
-    void testReplace_NotFound() {
+    void testReplaceError() {
         MoviePutRequestBodyDTO dto = mock(MoviePutRequestBodyDTO.class);
         when(dto.getId()).thenReturn(1L);
         when(movieRepository.findById(1L)).thenReturn(Optional.empty());
@@ -155,7 +155,7 @@ class MovieServiceTest {
 
     @Test
     @DisplayName("Should delete a movie by ID or throw NotFoundException")
-    void testDelete() {
+    void testDeleteSuccess() {
         Long id = 1L;
         Movie movie = mock(Movie.class);
         when(movieRepository.findById(id)).thenReturn(Optional.of(movie));
@@ -165,7 +165,7 @@ class MovieServiceTest {
 
     @Test
     @DisplayName("Should throw NotFoundException when deleting a movie that does not exist")
-    void testDelete_NotFound() {
+    void testDeleteError() {
         Long id = 1L;
         when(movieRepository.findById(id)).thenReturn(Optional.empty());
 

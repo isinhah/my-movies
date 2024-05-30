@@ -27,4 +27,12 @@ public class MovieMapper {
         movie.setLogDate(Instant.now().truncatedTo(ChronoUnit.SECONDS));
         return movie;
     }
+
+    public static MoviePostRequestBodyDTO toDTO(Movie movie) {
+        MoviePostRequestBodyDTO dto = new MoviePostRequestBodyDTO();
+        dto.setTitle(movie.getTitle());
+        dto.setRating(movie.getRating());
+        dto.setReview(movie.getReview());
+        return dto;
+    }
 }

@@ -53,7 +53,7 @@ class MovieRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should get Movie successfully from database")
+    @DisplayName("Should find movies successfully by rating")
     void findByRatingSuccess() {
         MoviePostRequestBodyDTO data = new MoviePostRequestBodyDTO("Inception", 5, "Amei o filme");
         this.createMovie(data);
@@ -66,7 +66,7 @@ class MovieRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should not get Movie from database when movie not exists")
+    @DisplayName("Should not find movies with non-corresponding ratings")
     void findByRatingError() {
         List<Movie> result = this.movieRepository.findByRating(5);
         assertThat(result).isEmpty();

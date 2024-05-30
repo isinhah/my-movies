@@ -28,14 +28,14 @@ public class MovieService {
         return movieRepository.findAll(pageable);
     }
 
-    public Movie getByIdOrThrowBadRequestException(Long id) {
-        return movieRepository.findById(id).orElseThrow(() -> new BadRequestException("Movie not found"));
+    public Movie getByIdOrThrowNotFoundException(Long id) {
+        return movieRepository.findById(id).orElseThrow(() -> new NotFoundException("Movie not found."));
     }
 
     public List<Movie> getByTitle(String title) {
         List<Movie> movies = movieRepository.findByTitleContainingIgnoreCase(title);
         if (movies.isEmpty()) {
-            throw new NotFoundException("No movies found with title: " + title);
+            throw new NotFoundException("No movies found with this title.");
         }
         return movies;
     }
@@ -43,7 +43,15 @@ public class MovieService {
     public List<Movie> getByRating(Integer rating) {
         List<Movie> movies = movieRepository.findByRating(rating);
         if (movies.isEmpty()) {
-            throw new NotFoundException("No movies found with rating: " + rating);
+            throw new NotFoundException("No movies found with this rating.");
+        }
+        return movies;
+    }
+
+    public List<Movie> getByReview(String review) {
+        List<Movie> movies = movieRepository.findByReviewContainingIgnoreCase(review);
+        if (movies.isEmpty()) {
+            throw new NotFoundException("No movies found with this review.");
         }
         return movies;
     }
@@ -56,7 +64,7 @@ public class MovieService {
 
     @Transactional
     public void replace(MoviePutRequestBodyDTO moviePutRequestBodyDTO) {
-        Movie savedAnime = getByIdOrThrowBadRequestException(moviePutRequestBodyDTO.getId());
+        Movie savedAnime = getByIdOrThrowNotFoundException(moviePutRequestBodyDTO.getId());
         Movie movie = MovieMapper.toEntityMovie(moviePutRequestBodyDTO);
         movie.setId(savedAnime.getId());
         movieRepository.save(movie);
@@ -64,6 +72,6 @@ public class MovieService {
 
     @Transactional
     public void delete(Long id) {
-       movieRepository.delete(getByIdOrThrowBadRequestException(id));
+       movieRepository.delete(getByIdOrThrowNotFoundException(id));
     }
 }

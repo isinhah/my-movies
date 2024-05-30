@@ -31,7 +31,7 @@ public class MovieController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Movie> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(movieService.getByIdOrThrowBadRequestException(id));
+        return ResponseEntity.ok(movieService.getByIdOrThrowNotFoundException(id));
     }
 
     @GetMapping("/find/by-title")
@@ -42,6 +42,11 @@ public class MovieController {
     @GetMapping("/find/by-rating")
     public ResponseEntity<List<Movie>> getByRating(@RequestParam Integer rating) {
         return ResponseEntity.ok(movieService.getByRating(rating));
+    }
+
+    @GetMapping("/find/by-review")
+    public ResponseEntity<List<Movie>> getByReview(@RequestParam String review) {
+        return ResponseEntity.ok(movieService.getByReview(review));
     }
 
     @PostMapping

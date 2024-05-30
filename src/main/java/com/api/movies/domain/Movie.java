@@ -1,5 +1,6 @@
 package com.api.movies.domain;
 
+import com.api.movies.dtos.movies.MoviePostRequestBodyDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

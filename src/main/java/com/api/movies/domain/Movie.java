@@ -3,6 +3,7 @@ package com.api.movies.domain;
 import com.api.movies.dtos.movies.MoviePostRequestBodyDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @Data
 @Entity
+@Builder
 @Table(name = "tb_movie")
 public class Movie implements Serializable {
     @Id
